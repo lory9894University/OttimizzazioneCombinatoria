@@ -32,3 +32,9 @@ L'algoritmo è dimostrabile essere $(1 − 1/e)$-approx della soluzione ottima. 
 TODO: Ho un po' le scatole piene di dimostrare cose, questa parte la leggerò poi, comunque sembra induzione.
 
 ### 2.2 L'algoritmo "lazy" (con un treshold)
+L'algoritmo greedy è comunque lento, $O(nk)$. Quindi proponiamo un nuovo algormito, che chiamiamo "lazy", che è $O(n/\epsilon \log n/\epsilon)$. pur rimanendo $(1 − 1/e − \epsilon)$-approximation.
+In pratica non prendiamo il valore migliore ad ogni passo, ma tutti gli elementi con valore maggiore di un certo treshold _b_. Il treshold varia (diminuisce) ad ogni iterazione.
+Nota che questo algoritmo non è solo più veloce (prende più elementi nella stessa iterazione) ma permette anche di conlcudedere prima, qualora fossimo già soddisfatti del risultato. Ricordando che lavoriamo su submodules e quindi diminishing returns, gli "ultimi" elementi che aggiungiamo superata una certa soglia potrebbero non essere così importanti, quindi potrebbe essere conveniente fermarsi prima.
+partiamo con $b=\max _{x \in X} f(\{x\})$, il valore dell'elemento con valore maggiore, aggiungiamo rutti gli elementi e poi decrementiamo $b$ di un fattore $(1-\epsilon)$. ci fermiamo quando... non sto capendo.... $\epsilon b/n$ 
+
+TODO: dimostrazione, anche questa la leggerò poi.
