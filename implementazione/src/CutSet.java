@@ -39,7 +39,7 @@ public class CutSet {
         for (Edge edge : edges){
             //for each edge check if it's a cutting edge (arco di taglio)
             if (c.g.adj_list.containsKey(edge.src) && !c.g.adj_list.containsKey(edge.dest)) {
-                crossingEdges++;
+                crossingEdges+= edge.weight;
             }
         }
         return crossingEdges;
