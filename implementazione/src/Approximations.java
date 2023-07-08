@@ -8,7 +8,7 @@ public class Approximations {
         //For each element xi ∈ X
         for (Edge e : g.getEdges()){
             double ai = CutSet.evaluate(A.unionElem(e))-CutSet.evaluate(A);
-            double bi = CutSet.evaluate(B.unionElem(e))-CutSet.evaluate(B);
+            double bi = CutSet.evaluate(B.setMinusElem(e))-CutSet.evaluate(B);
 
             if (ai >= bi) {
                 A = A.unionElem(e);
@@ -16,7 +16,8 @@ public class Approximations {
                 B = B.setMinusElem(e);
             }
         }
-
+        Graph.printGraph(A.g);
+        Graph.printGraph(B.g);
     }
 
     public static void half_approximation(Graph g) {
@@ -26,13 +27,13 @@ public class Approximations {
         //For each element xi ∈ X
          for (Edge e : g.getEdges()){
             double ai = CutSet.evaluate(A.unionElem(e))-CutSet.evaluate(A);
-            double bi = CutSet.evaluate(B.unionElem(e))-CutSet.evaluate(B);
+            double bi = CutSet.evaluate(B.setMinusElem(e))-CutSet.evaluate(B);
 
             ai = Math.max(ai, 0);
             bi = Math.max(bi, 0);
             double decisor = Math.random();
 
-            if (decisor >= ai /(ai + bi)) { //todo: ma se faccio 0/0 + bi, java espolde?
+            if (decisor >= ai /(ai + bi)) {
                 A = A.unionElem(e);
             } else {
                 B = B.setMinusElem(e);
@@ -43,6 +44,6 @@ public class Approximations {
     }
     public static void main(String[] args) {
        Graph g = new Graph("edges_test.txt");
-       Graph.printGraph(g);
+       one_third_approximation(g);
     }
 }
