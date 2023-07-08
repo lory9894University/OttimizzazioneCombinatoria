@@ -8,7 +8,7 @@ public class Approximations {
     public static void half_approximation() {
     }
     public static void main(String[] args) {
-        one_third_approximation();
-        half_approximation();
+       Graph g = new Graph("edges_test.txt");
+       Graph.printGraph(g);
     }
 }
