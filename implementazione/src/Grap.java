@@ -67,6 +67,14 @@ class Graph {
     }
 
     /***
+     * Graph: duplicate an existing graph
+     * @param g
+     */
+    public Graph(Graph g) {
+        this.adj_list = new HashMap<>(g.adj_list);
+    }
+
+    /***
      * addEdge: Adds an edge to the graph
      */
     public void addEdge(Edge e) {
@@ -95,6 +103,27 @@ class Graph {
         {
             addEdge(e);
         }
+    }
+
+    /***
+     * getEdges: Returns the edges of the graph
+     * @return
+     */
+    public List<Edge> getEdges() {
+        List<Edge> edges = new ArrayList<>();
+        for (int src_vertex : adj_list.keySet()) {
+            for (Node edge : adj_list.get(src_vertex)) {
+                edges.add(new Edge(src_vertex, edge.value, edge.weight));
+            }
+        }
+        return edges;
+    }
+
+    /***
+     * Equals: Checks if two graphs are equal
+     */
+    public boolean equals(Graph g) {
+        return this.adj_list.equals(g.adj_list); //todo: ma sarà uguaglianza di riferimento o di valori?
     }
 
     /***
