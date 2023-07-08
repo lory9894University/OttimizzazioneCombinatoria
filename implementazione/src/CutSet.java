@@ -18,13 +18,12 @@ public class CutSet {
     }
 
     public CutSet unionElem(Edge e) {
-        CutSet B = new CutSet(g);
-        CutSet result = new CutSet();
+        CutSet result = new CutSet(g);
         result.addElement(e);
         return result;
     }
     public CutSet setMinusElem(Edge e) {
-        CutSet result = new CutSet();
+        CutSet result = new CutSet(g);
         result.removeElement(e);
         return result;
     }
