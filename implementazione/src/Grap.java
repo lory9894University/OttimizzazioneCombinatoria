@@ -16,7 +16,7 @@ class Edge {
 // Graph class
 class Graph {
 
-    List<List<Node>> adj_list;
+    HashMap<Integer,List<Node>> adj_list = new HashMap<>();
 
     /***
      * Node: Node class for the adjacency list, private so only Graph can access it
@@ -49,7 +49,7 @@ class Graph {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        adj_listPopulate(edges);
+        addEdges(edges);
     }
     /***
      * Graph: Creates a graph from a list of edges
@@ -57,26 +57,43 @@ class Graph {
      */
     public Graph(List<Edge> edges)
     {
-        adj_listPopulate(edges);
+        addEdges(edges);
     }
 
     /***
-     * adj_listPopulate: Populates the adjacency list
+     * Graph: Creates an empty graph
+     */
+    public Graph() {
+    }
+
+    /***
+     * addEdge: Adds an edge to the graph
+     */
+    public void addEdge(Edge e) {
+        // allocate new edge List from from source if not already present
+            if (!adj_list.containsKey(e.src))
+                adj_list.put(e.src, new ArrayList<>());
+            // add dest to src's list
+            adj_list.get(e.src).add(new Node(e.dest, e.weight));
+    }
+
+    /***
+     * removeEdge: Removes an edge from the graph
+     */
+    public void removeEdge(Edge e) {
+        // remove dest from src's list
+        adj_list.get(e.src).remove(new Node(e.dest, e.weight));
+    }
+
+    /***
+     * addEdges: Populates the adjacency list
      * @param edges
      */
-    private void adj_listPopulate(List<Edge> edges){
-        // adiacency list memory creation
-        adj_list = new ArrayList<>();
-
-        // adjacency list memory allocation
-        for (int i = 0; i < edges.size(); i++)
-            adj_list.add(i, new ArrayList<>());
-
+    private void addEdges(List<Edge> edges){
         // add edges to the graph
         for (Edge e : edges)
         {
-            // allocate new node in adjacency List from src to dest
-            adj_list.get(e.src).add(new Node(e.dest, e.weight));
+            addEdge(e);
         }
     }
 
@@ -85,19 +102,15 @@ class Graph {
      * @param graph
      */
     public static void printGraph(Graph graph)  {
-        int src_vertex = 0;
-        int list_size = graph.adj_list.size();
 
-        System.out.println("The contents of the graph:");
-        while (src_vertex < list_size) {
+        System.out.println("The adj matrix of the graph:");
+        for (int src_vertex : graph.adj_list.keySet()) {
+            System.out.print("|" + src_vertex + "| => ");
             //traverse through the adjacency list and print the edges
             for (Node edge : graph.adj_list.get(src_vertex)) {
-                System.out.print("Vertex:" + src_vertex + " ==> " + edge.value +
-                                " (" + edge.weight + ")\t");
+                System.out.print("[" + edge.value + " (" + edge.weight + ")] -> ");
             }
-
-            System.out.println();
-            src_vertex++;
+            System.out.println("/");
         }
     }
 }
