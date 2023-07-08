@@ -6,10 +6,11 @@ import java.util.*;
  * Edge: Edge class for the adjacency list, public so classes outside Graph can access it if needed
  */
 class Edge {
-    int src, dest;
-    Edge(int src, int dest) {
+    int src, dest, weight;
+    Edge(int src, int dest, int weight) {
             this.src = src;
             this.dest = dest;
+            this.weight = weight;
         }
 }
 // Graph class
@@ -21,9 +22,10 @@ class Graph {
      * Node: Node class for the adjacency list, private so only Graph can access it
      */
     private static class Node {
-        int value;
-        Node(int value)  {
+        int value, weight;
+        Node(int value, int weight)  {
             this.value = value;
+            this.weight = weight;
         }
     }
 
@@ -40,7 +42,8 @@ class Graph {
                 String[] tokens = line.split(" ");
                 int src = Integer.parseInt(tokens[0]);
                 int dest = Integer.parseInt(tokens[1]);
-                edges.add(new Edge(src, dest));
+                int weight = Integer.parseInt(tokens[2]);
+                edges.add(new Edge(src, dest, weight));
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -79,7 +82,7 @@ class Graph {
             if (!adj_list.containsKey(e.src))
                 adj_list.put(e.src, new ArrayList<>());
             // add dest to src's list
-            adj_list.get(e.src).add(new Node(e.dest));
+            adj_list.get(e.src).add(new Node(e.dest, e.weight));
     }
 
     /***
@@ -87,7 +90,7 @@ class Graph {
      */
     public void removeEdge(Edge e) {
         // remove dest from src's list
-        adj_list.get(e.src).remove(new Node(e.dest));
+        adj_list.get(e.src).remove(new Node(e.dest, e.weight));
     }
 
     /***
@@ -110,11 +113,12 @@ class Graph {
         List<Edge> edges = new ArrayList<>();
         for (int src_vertex : adj_list.keySet()) {
             for (Node edge : adj_list.get(src_vertex)) {
-                edges.add(new Edge(src_vertex, edge.value));
+                edges.add(new Edge(src_vertex, edge.value, edge.weight));
             }
         }
         return edges;
     }
+
     /***
      * printGraph: Prints the graph, debugging purposes
      * @param graph
@@ -126,7 +130,7 @@ class Graph {
             System.out.print("|" + src_vertex + "| => ");
             //traverse through the adjacency list and print the edges
             for (Node edge : graph.adj_list.get(src_vertex)) {
-                System.out.print("[" + edge.value + "] -> ");
+                System.out.print("[" + edge.value + " (" + edge.weight + ")] -> ");
             }
             System.out.println("/");
         }

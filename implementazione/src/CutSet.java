@@ -17,8 +17,8 @@ public class CutSet {
         g.removeEdge(e);
     }
 
-    public CutSet unionElem(Edge e) {       CutSet B = new CutSet(g);
-
+    public CutSet unionElem(Edge e) {
+        CutSet B = new CutSet(g);
         CutSet result = new CutSet();
         result.addElement(e);
         return result;
