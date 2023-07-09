@@ -137,14 +137,16 @@ class Graph {
      */
     public static void printGraph(Graph graph)  {
 
-        System.out.println("The adj matrix of the graph:");
+        System.out.println("The adj list of the graph:");
         for (int src_vertex : graph.adj_list.keySet()) {
-            System.out.print("|" + src_vertex + "| => ");
-            //traverse through the adjacency list and print the edges
-            for (Node edge : graph.adj_list.get(src_vertex)) {
-                System.out.print("[" + edge.value + " (" + edge.weight + ")] -> ");
+            if (graph.adj_list.get(src_vertex).size() != 0) {
+                System.out.print("|" + src_vertex + "| => ");
+                //traverse through the adjacency list and print the edges
+                for (Node edge : graph.adj_list.get(src_vertex)) {
+                    System.out.print("[" + edge.value + " (" + edge.weight + ")] -> ");
+                }
+                System.out.println("/");
             }
-            System.out.println("/");
         }
     }
 }
