@@ -12,6 +12,15 @@ class Edge {
             this.dest = dest;
             this.weight = weight;
         }
+    //debug
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "src=" + src +
+                ", dest=" + dest +
+                ", weight=" + weight +
+                '}';
+    }
 }
 // Graph class
 class Graph {
@@ -72,6 +81,9 @@ class Graph {
      */
     public Graph(Graph g) {
         this.adj_list = new HashMap<>(g.adj_list);
+        for (int src_vertex : g.adj_list.keySet()) {
+            this.adj_list.put(src_vertex, new ArrayList<>(g.adj_list.get(src_vertex)));
+        }
     }
 
     /***
@@ -89,8 +101,8 @@ class Graph {
      * removeEdge: Removes an edge from the graph
      */
     public void removeEdge(Edge e) {
-        // remove dest from src's list
-        adj_list.get(e.src).remove(new Node(e.dest, e.weight));
+        // remove dest from src's list. get src's list using map, then remove the only node having same destination as given Edge e
+        adj_list.get(e.src).removeIf(node -> node.value == e.dest);
     }
 
     /***
