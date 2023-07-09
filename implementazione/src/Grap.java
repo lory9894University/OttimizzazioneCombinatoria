@@ -6,8 +6,9 @@ import java.util.*;
  * Edge: Edge class for the adjacency list, public so classes outside Graph can access it if needed
  */
 class Edge {
-    int src, dest, weight;
-    Edge(int src, int dest, int weight) {
+    int src, dest;
+    double weight;
+    Edge(int src, int dest, double weight) {
             this.src = src;
             this.dest = dest;
             this.weight = weight;
@@ -31,8 +32,9 @@ class Graph {
      * Node: Node class for the adjacency list, private so only Graph can access it
      */
     private static class Node {
-        int value, weight;
-        Node(int value, int weight)  {
+        int value;
+        double weight;
+        Node(int value, double weight)  {
             this.value = value;
             this.weight = weight;
         }
@@ -51,7 +53,7 @@ class Graph {
                 String[] tokens = line.split(" ");
                 int src = Integer.parseInt(tokens[0]);
                 int dest = Integer.parseInt(tokens[1]);
-                int weight = Integer.parseInt(tokens[2]);
+                double weight = Double.parseDouble(tokens[2]);
                 edges.add(new Edge(src, dest, weight));
             }
             scanner.close();

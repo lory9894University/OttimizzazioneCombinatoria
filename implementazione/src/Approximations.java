@@ -43,7 +43,7 @@ public class Approximations {
 
     }
     public static void main(String[] args) {
-       Graph g = new Graph("edges_test.txt");
+       Graph g = new Graph("book_test.txt");
        one_third_approximation(g);
     }
 }
