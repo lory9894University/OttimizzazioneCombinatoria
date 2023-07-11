@@ -3,12 +3,29 @@ import java.util.ArrayList;
 public class CutSet {
     //https://github.com/bunelr/sfm-min/tree/master/min-cut-pb
     Graph g;
+    Graph original; //this is the original graph, used to add elements to the cutset
 
-    public CutSet(Graph g) {
+    //todo: non mi piace, non si capische che cosa è g e che cosa è original, non si capisce che costruttore usare
+
+    /**
+     * CutSet: Creates a cutset from a graph, the cutset is initialized with the same vertices as the graph
+     *
+     * @param g        the graph
+     * @param original the original graph
+     */
+    public CutSet(Graph g, Graph original) {
         this.g = new Graph(g);
+        this.original = new Graph(original);
     }
 
-    public CutSet() {
+    /**
+     * CutSet: Creates an empty CutSet
+     *
+     * @param original the original graph
+     */
+
+    public CutSet(Graph original) {
+        this.original = new Graph(original);
         g = new Graph();
     }
 
@@ -25,23 +42,29 @@ public class CutSet {
         return crossingEdges;
     }
 
-    private void addElement(Edge e) {
-        g.addEdge(e);
+    private void addElement(int vertex, ArrayList<Edge> edges) {
+        g.addVertex(vertex, edges);
     }
 
-    private void removeElement(Edge e) {
-        g.removeEdge(e);
+    private void removeElement(int vertex) {
+        g.removeVertex(vertex);
     }
 
-    public CutSet unionElem(Edge e) {
+    public CutSet unionElem(int vertex) {
         CutSet result = new CutSet(g);
-        result.addElement(e);
+        ArrayList<Edge> edges = new ArrayList<>();
+        for (Edge e : original.getEdges()) {
+            if (e.src == vertex) {
+                edges.add(e);
+            }
+        }
+        result.addElement(vertex, edges);
         return result;
     }
 
-    public CutSet setMinusElem(Edge e) {
+    public CutSet setMinusElem(int vertex) {
         CutSet result = new CutSet(g);
-        result.removeElement(e);
+        result.removeElement(vertex);
         return result;
     }
 

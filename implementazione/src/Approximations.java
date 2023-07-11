@@ -1,18 +1,20 @@
+import java.util.ArrayList;
+
 public class Approximations {
 
     public static void one_third_approximation(Graph g) {
-        CutSet A = new CutSet();
-        CutSet B = new CutSet(g);
+        CutSet A = new CutSet(g);
+        CutSet B = new CutSet(g, g);
 
         //For each element xi ∈ X
-        for (Edge e : g.getEdges()) {
-            double ai = CutSet.evaluate(A.unionElem(e)) - CutSet.evaluate(A);
-            double bi = CutSet.evaluate(B.setMinusElem(e)) - CutSet.evaluate(B);
+        for (int v : g.getVertices()) { //sarebbe meglio creare un metodo in CutSet che ritorni tutti gli elementi su cui iterare. generico
+            double ai = CutSet.evaluate(A.unionElem(v)) - CutSet.evaluate(A);
+            double bi = CutSet.evaluate(B.setMinusElem(v)) - CutSet.evaluate(B);
 
             if (ai >= bi) {
-                A = A.unionElem(e);
+                A = A.unionElem(v);
             } else {
-                B = B.setMinusElem(e);
+                B = B.setMinusElem(v);
             }
         }
         Graph.printGraph(A.g);
@@ -20,22 +22,22 @@ public class Approximations {
     }
 
     public static void half_approximation(Graph g) {
-        CutSet A = new CutSet();
-        CutSet B = new CutSet(g);
+        CutSet A = new CutSet(g);
+        CutSet B = new CutSet(g, g);
 
         //For each element xi ∈ X
-        for (Edge e : g.getEdges()) {
-            double ai = CutSet.evaluate(A.unionElem(e)) - CutSet.evaluate(A);
-            double bi = CutSet.evaluate(B.setMinusElem(e)) - CutSet.evaluate(B);
+        for (int v : g.getVertices()) {
+            double ai = CutSet.evaluate(A.unionElem(v)) - CutSet.evaluate(A);
+            double bi = CutSet.evaluate(B.setMinusElem(v)) - CutSet.evaluate(B);
 
             ai = Math.max(ai, 0);
             bi = Math.max(bi, 0);
             double decisor = Math.random();
 
             if (decisor >= ai / (ai + bi)) {
-                B = B.setMinusElem(e);
+                B = B.setMinusElem(v);
             } else {
-                A = A.unionElem(e);
+                A = A.unionElem(v);
             }
         }
         Graph.printGraph(A.g);
@@ -44,8 +46,8 @@ public class Approximations {
     }
 
     public static void main(String[] args) {
-        Graph g = new Graph("edges_test.txt");
+        Graph g = new Graph("book_test.txt");
         one_third_approximation(g);
-        half_approximation(g);
+
     }
 }
