@@ -36,7 +36,7 @@ public class CutSet {
         for (Edge edge : edges) {
             //for each edge check if it's a cutting edge (arco di taglio)
             if (c.g.adj_list.containsKey(edge.src) && !c.g.adj_list.containsKey(edge.dest)) {
-                crossingEdges += 1;
+                crossingEdges += edge.weight; //todo: =+ 1 o += edge.weight ?
             }
         }
         return crossingEdges;
@@ -51,11 +51,11 @@ public class CutSet {
     }
 
     public CutSet unionElem(int vertex) {
-        CutSet result = new CutSet(g);
+        CutSet result = new CutSet(g, original);
         ArrayList<Edge> edges = new ArrayList<>();
-        for (Edge e : original.getEdges()) {
-            if (e.src == vertex) {
-                edges.add(e);
+        for (Edge edge : original.getEdges()) {
+            if (edge.src == vertex) {
+                edges.add(edge);
             }
         }
         result.addElement(vertex, edges);
@@ -63,7 +63,7 @@ public class CutSet {
     }
 
     public CutSet setMinusElem(int vertex) {
-        CutSet result = new CutSet(g);
+        CutSet result = new CutSet(g, original);
         result.removeElement(vertex);
         return result;
     }
