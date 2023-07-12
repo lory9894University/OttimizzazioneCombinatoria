@@ -40,6 +40,8 @@ public class CutSet {
             }
         }
         return crossingEdges;
+
+        //in ogni caso questo definisce un max cut, non un min cut
     }
 
     private void addElement(int vertex, ArrayList<Edge> edges) {
