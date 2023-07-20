@@ -7,7 +7,7 @@ public class Approximations {
         CutSet B = new CutSet(g, g);
 
         //For each element xi ∈ X
-        for (int v : g.getVertices()) { //sarebbe meglio creare un metodo in CutSet che ritorni tutti gli elementi su cui iterare. generico
+        for (int v : g.getVertices()) {
             double ai = CutSet.evaluate(A.unionElem(v)) - CutSet.evaluate(A);
             double bi = CutSet.evaluate(B.setMinusElem(v)) - CutSet.evaluate(B);
 
@@ -49,7 +49,9 @@ public class Approximations {
 
     public static void main(String[] args) {
         Graph g = new Graph("test4.txt");
+        System.out.println("----------One third approximation----------");
         one_third_approximation(g);
+        System.out.println("----------Half approximation----------");
         half_approximation(g);
     }
 }
