@@ -5,7 +5,6 @@ public class CutSet {
     Graph g;
     Graph original; //this is the original graph, used to add elements to the cutset
 
-    //todo: non mi piace, non si capische che cosa è g e che cosa è original, non si capisce che costruttore usare
 
     /**
      * CutSet: Creates a cutset from a graph, the cutset is initialized with the same vertices as the graph
